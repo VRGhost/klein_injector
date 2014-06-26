@@ -32,6 +32,7 @@ The below example will output "Hello world!" as "/" page
 You can also use `klein.ext.injector.request` scope in your bindings.
 
 .. code-block:: python
+
     def configure(binder):
         binder.bind(str, to="A long time ago in a galaxy far, far away",
             scope=klein.ext.injector.request
