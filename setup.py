@@ -1,3 +1,4 @@
+import ast
 import codecs
 import os
 import re
@@ -20,11 +21,13 @@ def find_version(*file_paths):
     Build a path from *file_paths* and search for a ``__version__``
     string inside.
     """
+
     version_file = read(*file_paths)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
+    version_match = re.search(r"^__version__ =\s*(.*)$", version_file, re.M)
     if version_match:
-        return version_match.group(1)
+        txt = version_match.group(1)
+        numVersion = ast.literal_eval(txt)
+        return ".".join(str(el) for el in numVersion)
     raise RuntimeError("Unable to find version string.")
 
 
